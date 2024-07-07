@@ -20,10 +20,15 @@ template<class T> class Array {
 		}
 
 		Array(const Array &copy) {
-			this->array = new T[copy.len];
-			for (size_t cursor = 0; cursor < copy.len; cursor++)
-				this->array[cursor] = copy.array[cursor];
-			this->len = copy.len;
+			try {
+				this->array = new T[copy.len];
+				for (size_t cursor = 0; cursor < copy.len; cursor++)
+					this->array[cursor] = copy.array[cursor];
+				this->len = copy.len;
+			} catch (std::exception &error) {
+				std::cerr << error.what() << std::endl;
+				throw("unable to copy the array");
+			}
 		}
 
 		~Array(void) {
